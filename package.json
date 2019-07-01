@@ -1,5 +1,5 @@
 {
-  "name": "@reddotpay/auditlog",
+  "name": "@reddotpay/rdp-auditlog",
   "version": "1.0.0",
   "description": "Audit logger for RDP products",
   "main": "index.js",
