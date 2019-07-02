@@ -1,5 +1,5 @@
 node_modules/
-package-lock.json
-.env
 test.js
 .DS_Store
+.env
+.npmrc
