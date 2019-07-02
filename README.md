@@ -1,4 +1,6 @@
 # rdp-Auditlog
+[![npm (scoped)](https://img.shields.io/npm/v/@reddotpay/rdp-auditlog.svg)](https://www.npmjs.com/package/@reddotpay/rdp-auditlog)
+
 Audit log npm package for RDP products
 
 ### Install
