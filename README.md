@@ -8,7 +8,7 @@ Audit log npm package for RDP products
 
 ##### Policy ARN
 ```
-arn:aws:iam::123507266571:policy/AmazonKinesisFirehoseWriteOnlyAccess
+arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 ```
 
 ### Usage
