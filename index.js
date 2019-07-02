@@ -22,7 +22,7 @@ class RDPLog {
       } else {
         this.firehose.putRecord(
           {
-            DeliveryStreamName: process.env.DELIVERY_STREAM_NAME,
+            DeliveryStreamName: process.env.DELIVERY_STREAM_NAME_STAG,
             Record: {
               Data: Buffer.from(JSON.stringify(value)),
             },
