@@ -16,13 +16,21 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/reddotpay/auditlog.git"
+  },
+  "author": "Jerry Pan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/reddotpay/auditlog/issues"
+  },
+  "homepage": "https://github.com/reddotpay/auditlog#readme",
   "keywords": [
     "npm",
     "package",
     "reddotpay",
     "rdp-auditlog",
     "auditlog"
-  ],
-  "author": "Jerry Pan",
-  "license": "ISC"
+  ]
 }
