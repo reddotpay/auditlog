@@ -18,9 +18,7 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 ##### Data Types
 ```
 [Object] data
-[String] data.flag [accepted: 'log', 'debug', 'info', 'warn', 'error']
 [String] data.message
-[Date]   data.createdAt
 ```
 
 ##### Example
@@ -28,10 +26,37 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
 const data = {
-    flag: 'info',
     message: 'This is rdp audit log',
-    createdAt: new Date(),
 };
 
-rdpLog.doPutRecord(data);
+rdpLog.log(data);
+rdpLog.info(data);
+rdpLog.debug(data);
+rdpLog.warn(data);
+rdpLog.error(data);
+```
+
+##### Response
+```
+{
+    status: "log success",
+    recordId: "anUniqueRecordId"
+}
+```
+
+##### Error
+```
+Validation Error: 
+{
+    status: "validation error",
+    message: "validation error message"
+}
+```
+
+```
+Log Error: 
+{
+    status: "log failure",
+    message: "log error message"
+}
 ```
