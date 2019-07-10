@@ -4,7 +4,8 @@
 Audit log npm package for RDP products
 
 ### Install
-```npm install @reddotpay/rdp-auditlog```
+1. `npm install @reddotpay/rdp-auditlog`
+2. refer to `.env.example` for environment variables
 
 ### Requirements
 
@@ -17,8 +18,10 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 
 ##### Data Types
 ```
-[Object] data
-[String] data.message
+[Object]                    data
+[String]                    data.product
+[String](default="root")    data.user
+[Any]                       data.message
 ```
 
 ##### Example
@@ -26,7 +29,9 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
 const data = {
-    message: 'This is rdp audit log',
+    product: 'rdpProductName',
+    user: 'userId',
+    message: 'This is log message',
 };
 
 rdpLog.log(data);
@@ -39,24 +44,10 @@ rdpLog.error(data);
 ##### Response
 ```
 {
-    status: "log success",
-    recordId: "anUniqueRecordId"
-}
-```
-
-##### Error
-```
-Validation Error: 
-{
-    status: "validation error",
-    message: "validation error message"
-}
-```
-
-```
-Log Error: 
-{
-    status: "log failure",
-    message: "log error message"
+    createdAt: "UTC Timestamp",
+    flag: "info",
+    product: "rdpProductName",
+    user: "userId",
+    message: "This is log message"
 }
 ```
