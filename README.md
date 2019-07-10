@@ -16,29 +16,22 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 
 ### Usage
 
-##### Data Types
-```
-[Object]                    data
-[String]                    data.product
-[String](default="root")    data.user
-[Any]                       data.message
-```
-
 ##### Example
 ```
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
-const data = {
-    product: 'rdpProductName',
-    user: 'userId',
-    message: 'This is log message',
-};
+rdpLog.log(product, user, message);
+rdpLog.info(product, user, message);
+rdpLog.debug(product, user, message);
+rdpLog.warn(product, user, message);
+rdpLog.error(product, user, message);
+```
 
-rdpLog.log(data);
-rdpLog.info(data);
-rdpLog.debug(data);
-rdpLog.warn(data);
-rdpLog.error(data);
+##### Parameters
+```
+product     [String]
+user        [String]    (default="root")
+message     [Any]
 ```
 
 ##### Response

@@ -1,4 +1,5 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
+require('dotenv').config();
 const AWS = require('aws-sdk');
 
 AWS.config.update({ region: 'ap-southeast-1' });
@@ -6,17 +7,21 @@ AWS.config.update({ region: 'ap-southeast-1' });
 class RDPLog {
   constructor() {
     this.firehose = new AWS.Firehose();
-    this.transformRecord = (flag, record) => {
+    this.transformRecord = (flag, product, user, ...message) => {
       const transformedRecord = {};
       transformedRecord.createdAt = (new Date()).toUTCString();
       transformedRecord.flag = flag;
-      if(record.product) {
-        transformedRecord.product = record.product;
+      if(product && product !== null && product !== "") {
+        transformedRecord.product = product;
       } else {
-        throw "product field cannot be empty or omitted";
+        console.log("product field cannot be empty or omitted");
       }
-      transformedRecord.user =  record.user ? record.user : "root";
-      transformedRecord.message = record.message;
+      if(user && user !== null && user !== "") {
+        transformedRecord.user = user;
+      } else {
+        transformedRecord.user = "root";
+      }
+      transformedRecord.message = [...message];
       return transformedRecord;
     };
     this.saveLog = async (record) => {
@@ -38,28 +43,28 @@ class RDPLog {
     };
   }
 
-  async log(logMessageObj) {
-    const record = this.transformRecord("log", logMessageObj);
+  async log(product, user, ...message) {
+    const record = this.transformRecord("log", product, user, ...message);
     await this.saveLog(record);
   }
 
-  async info(logMessageObj) {
-    const record = this.transformRecord("info", logMessageObj);
+  async info(product, user, ...message) {
+    const record = this.transformRecord("info", product, user, ...message);
     await this.saveLog(record);
   }
 
-  async debug(logMessageObj) {
-    const record = this.transformRecord("debug", logMessageObj);
+  async debug(product, user, ...message) {
+    const record = this.transformRecord("debug", product, user, ...message);
     await this.saveLog(record);
   }
 
-  async warn(logMessageObj) {
-    const record = this.transformRecord("warn", logMessageObj);
+  async warn(product, user, ...message) {
+    const record = this.transformRecord("warn", product, user, ...message);
     await this.saveLog(record);
   }
 
-  async error(logMessageObj) {
-    const record = this.transformRecord("error", logMessageObj);
+  async error(product, user, ...message) {
+    const record = this.transformRecord("error", product, user, ...message);
     await this.saveLog(record);
   }
 }
