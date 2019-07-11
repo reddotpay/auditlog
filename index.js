@@ -33,7 +33,7 @@ class RDPLog {
             },
           },
         ).promise();
-        if(process.env.ENVIRONMENT === 'dev' && promise){
+        if(promise && (process.env.ENVIRONMENT === 'dev' || process.env.ENVIRONMENT === 'stag')){
           console.log(JSON.stringify(record, null, 2));
         }
       } catch(err) {
