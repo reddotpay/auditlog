@@ -66,6 +66,10 @@ class RDPLog {
     const record = this.transformRecord("error", product, user, ...message);
     await this.saveLog(record);
   }
+  async add(product, user, ...message) {
+    const record = this.transformRecord("add", product, user, ...message);
+    await this.saveLog(record);
+  }
 }
 
 const rdpLog = new RDPLog();
