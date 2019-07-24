@@ -16,9 +16,6 @@
     "url": "https://github.com/reddotpay/auditlog/issues"
   },
   "homepage": "https://github.com/reddotpay/auditlog#readme",
-  "dependencies": {
-    "aws-sdk": "^2.489.0"
-  },
   "keywords": [
     "npm",
     "package",
