@@ -27,7 +27,7 @@ class RDPLog {
       try {
         const promise = await this.firehose.putRecord(
           {
-            DeliveryStreamName: process.env.DELIVERY_STREAM_NAME_STAG,
+            DeliveryStreamName: process.env.DELIVERY_STREAM_NAME,
             Record: {
               Data: Buffer.from(JSON.stringify(record, null, 2)),
             },
