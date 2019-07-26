@@ -8,10 +8,36 @@ Audit log npm package for RDP products
 2. refer to `.env.example` for environment variables
 
 ### Requirements
+AWS Role can refer to either *Managed Policy ARN* or *Policy* below.
 
-##### Policy ARN
+##### Managed Policy ARN
 ```
 arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
+```
+##### Policy
+```
+Type: AWS::IAM::Role
+Properties:
+    AssumeRolePolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+    - Effect: Allow
+        Principal:
+        Service:
+            - lambda.amazonaws.com
+        Action:
+        - 'sts:AssumeRole'
+    Policies:
+    - PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+        - Effect: Allow
+            Action:
+            - 'lambda:*'
+            - 'firehose:*'
+            - 'logs:*'
+            - 'ec2:*'
+            Resource: '*'
 ```
 
 ### Usage
@@ -20,11 +46,11 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 ```
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
-rdpLog.log(product, user, message);
-rdpLog.info(product, user, message);
-rdpLog.debug(product, user, message);
-rdpLog.warn(product, user, message);
-rdpLog.error(product, user, message);
+await rdpLog.log(product, user, message);
+await rdpLog.info(product, user, message);
+await rdpLog.debug(product, user, message);
+await rdpLog.warn(product, user, message);
+await rdpLog.error(product, user, message);
 ```
 
 ##### Parameters
