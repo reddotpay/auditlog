@@ -25,6 +25,8 @@ class RDPLog {
     };
     this.saveLog = async (record) => {
       try {
+        const env = process.env.ENVIRONMENT;
+        const displayLog = env === 'dev' || env === 'development' || env === 'stag' || env === 'staging';
         const promise = await this.firehose.putRecord(
           {
             DeliveryStreamName: process.env.DELIVERY_STREAM_NAME,
@@ -33,7 +35,7 @@ class RDPLog {
             },
           },
         ).promise();
-        if(promise && (process.env.ENVIRONMENT === 'dev' || process.env.ENVIRONMENT === 'stag')){
+        if(promise && displayLog){
           console.log(JSON.stringify(record, null, 2));
         }
       } catch(err) {
