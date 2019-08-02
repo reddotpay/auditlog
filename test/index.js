@@ -6,6 +6,21 @@ const { save, stubFirehoseInstance } = require('../modules/save');
 
 let sinonSandbox = sinon.createSandbox();
 
+const transformExpectedTest = (result) => {
+	expect(result).to.be.an('object');
+
+	expect(result).to.have.own.property('createdAt');
+	expect(result).to.have.own.property('flag');
+	expect(result).to.have.own.property('user');
+	expect(result).to.have.own.property('summary');
+	expect(result).to.have.own.property('message');
+
+	expect(result.createdAt).to.be.a('string');
+	expect(result.flag).to.be.a('string');
+	expect(result.summary).to.be.a('string');
+	expect(result.message).to.be.an('array');
+};
+
 describe('Test index', () => {
 	// disable all types of console
 	before(() => {
@@ -16,55 +31,25 @@ describe('Test index', () => {
 	// test functions
 	describe('Testing Transform Function', () => {
 		it('all fields are valid', () => {
-			const result = transform('flag', 'product', 'user', 'list of messages');
-
-			expect(result).to.be.an('object');
-
-			expect(result).to.have.own.property('createdAt');
-			expect(result).to.have.own.property('flag');
+			const result = transform('flag', 'product', 'user', 'summary', 'list of messages');
+			transformExpectedTest(result);
 			expect(result).to.have.own.property('product');
-			expect(result).to.have.own.property('user');
-			expect(result).to.have.own.property('message');
-
-			expect(result.createdAt).to.be.a('string');
-			expect(result.flag).to.be.a('string');
 			expect(result.product).to.be.a('string');
 			expect(result.user).to.be.a('string');
-			expect(result.message).to.be.an('array');
 		});
 		it('empty user field', () => {
-			const result = transform('flag', 'product', '', 'list of messages');
-
-			expect(result).to.be.an('object');
-
-			expect(result).to.have.own.property('createdAt');
-			expect(result).to.have.own.property('flag');
+			const result = transform('flag', 'product', '', 'summary', 'list of messages');
+			transformExpectedTest(result);
 			expect(result).to.have.own.property('product');
-			expect(result).to.have.own.property('user');
-			expect(result).to.have.own.property('message');
-
-			expect(result.createdAt).to.be.a('string');
-			expect(result.flag).to.be.a('string');
 			expect(result.product).to.be.a('string');
 			expect(result.user).to.equal('root');
-			expect(result.message).to.be.an('array');
 		});
 		it('empty product field', () => {
-			const result = transform('flag', '', 'user', 'list of messages');
-
-			expect(result).to.be.an('object');
-
-			expect(result).to.have.own.property('createdAt');
-			expect(result).to.have.own.property('flag');
+			const result = transform('flag', '', 'user', 'summary', 'list of messages');
+			transformExpectedTest(result);
 			expect(result).to.not.have.own.property('product');
-			expect(result).to.have.own.property('user');
-			expect(result).to.have.own.property('message');
-
-			expect(result.createdAt).to.be.a('string');
-			expect(result.flag).to.be.a('string');
 			expect(result.product).to.equal(undefined);
 			expect(result.user).to.be.a('string');
-			expect(result.message).to.be.an('array');
 		});
 	});
 	describe('Testing Save Function', () => {
