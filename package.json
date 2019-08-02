@@ -4,7 +4,7 @@
   "description": "Audit logger for RDP products",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "nyc mocha --timeout 60000"
   },
   "repository": {
     "type": "git",
@@ -22,5 +22,13 @@
     "reddotpay",
     "rdp-auditlog",
     "auditlog"
-  ]
+  ],
+  "devDependencies": {
+    "nyc": "^14.1.1",
+    "mocha": "^6.2.0",
+    "chai": "^4.2.0",
+    "sinon": "^7.3.2",
+    "dotenv": "^8.0.0",
+    "aws-sdk": "^2.503.0"
+  }
 }
