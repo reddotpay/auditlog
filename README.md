@@ -46,17 +46,18 @@ Properties:
 ```
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
-await rdpLog.log(product, user, message);
-await rdpLog.info(product, user, message);
-await rdpLog.debug(product, user, message);
-await rdpLog.warn(product, user, message);
-await rdpLog.error(product, user, message);
+await rdpLog.log(product, user, summary, message);
+await rdpLog.info(product, user, summary, message);
+await rdpLog.debug(product, user, summary, message);
+await rdpLog.warn(product, user, summary, message);
+await rdpLog.error(product, user, summary, message);
 ```
 
 ##### Parameters
 ```
 product     [String]
 user        [String]    (default="root")
+summary     [String]
 message     [Any]
 ```
 
@@ -67,6 +68,7 @@ message     [Any]
     flag: "info",
     product: "rdpProductName",
     user: "userId",
+    summary: "${user} did a [POST] / [PUT] / [PATCH] / [DELETE] on ${product} at ${createdAt}",
     message: "This is log message"
 }
 ```

@@ -1,8 +1,9 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
-const transform = (flag, product, user, ...message) => {
+const transform = (flag, product, user, summary, ...message) => {
   const transformedRecord = {};
   transformedRecord.createdAt = (new Date()).toUTCString();
   transformedRecord.flag = flag;
+  transformedRecord.summary = summary;
   if(product && product !== null && product !== "") {
     transformedRecord.product = product;
   } else {
