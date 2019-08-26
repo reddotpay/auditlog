@@ -1,4 +1,6 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
+const { logArray } = require('./logger');
+
 const transform = (flag, product, user, summary, ...message) => {
   const transformedRecord = {};
   transformedRecord.createdAt = (new Date()).toUTCString();
@@ -7,7 +9,7 @@ const transform = (flag, product, user, summary, ...message) => {
   if(product && product !== null && product !== "") {
     transformedRecord.product = product;
   } else {
-    console.log("product field cannot be empty or omitted");
+    logArray.push("product field cannot be empty or omitted");
   }
   if(user && user !== null && user !== "") {
     transformedRecord.user = user;

@@ -1,6 +1,7 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 const AWS = require('aws-sdk');
 const { environment, deliveryStreamName } = require('../config');
+const { logArray } = require('./logger');
 
 AWS.config.update({ region: 'ap-southeast-1' });
 let firehose = new AWS.Firehose();
@@ -18,7 +19,7 @@ const save = async (record) => {
       },
     ).promise();
     if(promise && displayLog){
-      console.log(JSON.stringify(record, null, 2));
+      logArray.push(JSON.stringify(record));
     }
     return promise;
   } catch(err) {
