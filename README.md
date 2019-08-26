@@ -46,11 +46,16 @@ Properties:
 ```
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
+=== Audit Log ===
 await rdpLog.log(product, user, summary, message);
 await rdpLog.info(product, user, summary, message);
 await rdpLog.debug(product, user, summary, message);
 await rdpLog.warn(product, user, summary, message);
 await rdpLog.error(product, user, summary, message);
+
+=== Developer Log ===
+rdpLog.storeLog(log);
+rdpLog.displayLog(); // to be called at the end
 ```
 
 ##### Parameters
@@ -59,6 +64,7 @@ product     [String]
 user        [String]    (default="root")
 summary     [String]
 message     [Any]
+log         [Any]
 ```
 
 ##### Response
