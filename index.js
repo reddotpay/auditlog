@@ -4,7 +4,7 @@ const { logArray, auditArray } = require('./modules/logger');
 
 class RDPLog {
   log(product, user, summary, ...message) {
-    const audit = transform("audit", product, user, summary, ...message);
+    const audit = transform('audit', product, user, summary, ...message);
     auditArray.push(audit);
   }
   storeLog(...log) {
