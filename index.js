@@ -1,37 +1,22 @@
 const { transform } = require('./modules/transform');
 const { save } = require('./modules/save');
-const { logArray } = require('./modules/logger');
+const { logArray, auditArray } = require('./modules/logger');
 
 class RDPLog {
-  async log(product, user, summary, ...message) {
-    const record = transform("log", product, user, summary, ...message);
-    await save(record);
-  }
-
-  async info(product, user, summary, ...message) {
-    const record = transform("info", product, user, summary, ...message);
-    await save(record);
-  }
-
-  async debug(product, user, summary, ...message) {
-    const record = transform("debug", product, user, summary, ...message);
-    await save(record);
-  }
-
-  async warn(product, user, summary, ...message) {
-    const record = transform("warn", product, user, summary, ...message);
-    await save(record);
-  }
-
-  async error(product, user, summary, ...message) {
-    const record = transform("error", product, user, summary, ...message);
-    await save(record);
+  log(product, user, summary, ...message) {
+    const audit = transform("audit", product, user, summary, ...message);
+    auditArray.push(audit);
   }
   storeLog(...log) {
     logArray.push(log);
   }
   displayLog() {
-    console.log(logArray);
+    logArray.forEach(log => {
+      console.log(log);
+    });
+    if (auditArray.length > 0) {
+      return save(auditArray);
+    }
   }
 }
 

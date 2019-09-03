@@ -9,7 +9,7 @@ const transform = (flag, product, user, summary, ...message) => {
   if(product && product !== null && product !== "") {
     transformedRecord.product = product;
   } else {
-    logArray.push("product field cannot be empty or omitted");
+    logArray.push('Audit Log: Product field cannot be empty or omitted');
   }
   if(user && user !== null && user !== "") {
     transformedRecord.user = user;
