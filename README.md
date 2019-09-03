@@ -6,6 +6,7 @@ Audit log npm package for RDP products
 ### Install
 1. `npm install @reddotpay/rdp-auditlog`
 2. refer to `.env.example` for environment variables
+3. `npm install dotenv` for *local development only*
 
 ### Requirements
 AWS Role can refer to either *Managed Policy ARN* or *Policy* below.
@@ -46,16 +47,10 @@ Properties:
 ```
 const rdpLog = require('@reddotpay/rdp-auditlog');
 
-=== Audit Log ===
-await rdpLog.log(product, user, summary, message);
-await rdpLog.info(product, user, summary, message);
-await rdpLog.debug(product, user, summary, message);
-await rdpLog.warn(product, user, summary, message);
-await rdpLog.error(product, user, summary, message);
+Audit:      rdpLog.log(product, user, summary, message);
+Developer:  rdpLog.storeLog(log);
 
-=== Developer Log ===
-rdpLog.storeLog(log);
-rdpLog.displayLog(); // to be called at the end
+rdpLog.displayLog(); // must be called once at the end
 ```
 
 ##### Parameters
@@ -69,12 +64,17 @@ log         [Any]
 
 ##### Response
 ```
+// Audit: Render as console log
 {
-    createdAt: "UTC Timestamp",
-    flag: "info",
-    product: "rdpProductName",
-    user: "userId",
-    summary: "${user} did a [POST] / [PUT] / [PATCH] / [DELETE] on ${product} at ${createdAt}",
-    message: "This is log message"
+    code: 200,
+    message: Successfully streamed ${noOfLogs} audit to firehose
 }
+```
+```
+// Developer: Render as console log
+[
+    ['log 1'],
+    ['log 2'],
+    ...
+]
 ```
