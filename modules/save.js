@@ -38,9 +38,9 @@ const save = (auditList) => {
 // ### For Unit Testing ###
 const stubFirehoseInstance = (sinonSandbox, stubStatus) => {
   if(stubStatus === "createErrorStub") {
-    sinonSandbox.stub(firehose, 'putRecord').throws(new TypeError());
+    sinonSandbox.stub(firehose, 'putRecordBatch').throws(new TypeError());
   } else if(stubStatus === "createSuccessStub") {
-    sinonSandbox.stub(firehose, 'putRecord')
+    sinonSandbox.stub(firehose, 'putRecordBatch')
     .returns({
       promise: () => {
         return {

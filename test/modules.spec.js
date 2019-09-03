@@ -2,10 +2,7 @@ const expect = require('chai').expect;
 const sinon = require('sinon');
 
 const { transform } = require('../modules/transform');
-const { save, stubFirehoseInstance } = require('../modules/save');
-const { logArray } = require('../modules/logger');
-
-let sinonSandbox = sinon.createSandbox();
+const { logArray, auditArray } = require('../modules/logger');
 
 describe('Modules Folder ->', () => {
 	before(() => {
@@ -49,30 +46,15 @@ describe('Modules Folder ->', () => {
 			expect(result.message).to.be.an('array');
 		});
 	});
-	describe('save.js -> async save(record)', () => {
-		it('should return an object when input is valid', async () => {
-			const testRecord = {
-				createdAt: "timestamp",
-				flag: "flag",
-				product: "productId",
-				user: "userId",
-				message: ["list of messages"]
-			}
-			sinonSandbox = stubFirehoseInstance(sinonSandbox, 'createSuccessStub');
-			let result = await save(testRecord);
-			expect(result).to.be.an('object');
-			sinonSandbox.restore();
-		});
-		it('should return error when input is invalid', async () => {
-			sinonSandbox = stubFirehoseInstance(sinonSandbox, 'createErrorStub');
-			let result = await save({});
-			expect(result).to.equal(undefined);
-			sinonSandbox.restore();
-		});
-	});
 	describe('logger.js -> const logArray', () => {
 		it('should return a data type of array', () => {
 			const result = logArray;
+			expect(result).to.be.an('array');
+		})
+	});
+	describe('logger.js -> const auditArray', () => {
+		it('should return a data type of array', () => {
+			const result = auditArray;
 			expect(result).to.be.an('array');
 		})
 	});
