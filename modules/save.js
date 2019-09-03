@@ -20,18 +20,26 @@ const save = (auditList) => {
     Records: records,
   }
 
-  firehose.putRecordBatch(params, (err, data) => {
-    if (err) {
-      return err;
-    }
-    if (displayLog) {
-      let response = {
-        code: 200,
-        message: `Successfully streamed ${auditList.length} audit to firehose`,
+  return firehose.putRecordBatch(params, (err, data) => {
+    const promise = new Promise((resolve, reject) => {
+      if (err) {
+        reject(err);
       }
-      console.log(response);
-    }
-    return data;
+      if (displayLog) {
+        let response = {
+          code: 200,
+          message: `Successfully streamed ${auditList.length} audit to firehose`,
+        }
+        console.log(response);
+      }
+      resolve(data);
+    });
+    
+    promise.then(res => {
+      return res;
+    }).catch(err => {
+      return err;
+    });
   });
 };
 
