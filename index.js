@@ -1,7 +1,6 @@
-const util = require('util');
 const { transform } = require('./modules/transform');
 const { save } = require('./modules/save');
-const { logArray, auditArray } = require('./modules/logger');
+let { logArray, auditArray } = require('./modules/logger');
 
 class RDPLog {
   log(product, user, summary, ...message) {
@@ -12,9 +11,16 @@ class RDPLog {
     logArray.push(log);
   }
   displayLog() {
-    logArray.forEach(log => {
-      console.log(util.inspect(log, false, null, true));
+    // console developer logs
+    logArray = logArray.map(log => {
+      if (log.length === 1) {
+        return `${JSON.stringify(log[0])}`;
+      }
+      return `${JSON.stringify(log)}`;
     });
+    console.log(logArray);
+
+    // stream audit logs
     if (auditArray.length > 0) {
       return save(auditArray);
     }

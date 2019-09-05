@@ -1,5 +1,5 @@
-const logArray = [];
-const auditArray = [];
+let logArray = [];
+let auditArray = [];
 
 module.exports = {
   logArray,
