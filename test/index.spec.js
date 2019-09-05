@@ -5,6 +5,22 @@ const rdpLog = require('../index');
 const { stubFirehoseInstance } = require('../modules/save');
 const { logArray } = require('../modules/logger');
 
+const nestedObjSample = {
+  "a":"a",
+  "b":{
+     "c":"c",
+     "d":{
+        "e":"e",
+        "f":{
+           "g":"g",
+           "h":{
+              "i":"i"
+           }
+        }
+     }
+  }
+}; 
+
 let sinonSandbox = sinon.createSandbox();
 
 describe('index.js ->', () => {
@@ -12,9 +28,9 @@ describe('index.js ->', () => {
     it('should return both audit and console logs in an array', async () => {
       sinonSandbox = stubFirehoseInstance(sinonSandbox, 'createSuccessStub');
       rdpLog.log('product', 'user', 'summary', 'message');
-      rdpLog.storeLog('log1');
+      rdpLog.storeLog(nestedObjSample);
       rdpLog.storeLog('log2', {testKey: "testValue"});
-      rdpLog.storeLog('log3', 'log4');
+      rdpLog.storeLog(['log3', 'log4']);
       rdpLog.displayLog();
       expect(logArray).to.be.an('array');
       sinonSandbox.restore();
