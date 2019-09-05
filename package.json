@@ -11,7 +11,7 @@
     "url": "git+https://github.com/reddotpay/auditlog.git"
   },
   "author": "Jerry Pan",
-  "license": "",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/reddotpay/auditlog/issues"
   },
@@ -31,7 +31,5 @@
     "dotenv": "^8.0.0",
     "aws-sdk": "^2.503.0"
   },
-  "dependencies": {
-    "util": "^0.12.1"
-  }
+  "dependencies": {}
 }
