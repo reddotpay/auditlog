@@ -1,3 +1,4 @@
+const util = require('util');
 const { transform } = require('./modules/transform');
 const { save } = require('./modules/save');
 const { logArray, auditArray } = require('./modules/logger');
@@ -12,7 +13,7 @@ class RDPLog {
   }
   displayLog() {
     logArray.forEach(log => {
-      console.log(log);
+      console.log(util.inspect(log, false, null, true));
     });
     if (auditArray.length > 0) {
       return save(auditArray);

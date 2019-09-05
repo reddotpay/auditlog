@@ -30,5 +30,8 @@
     "sinon": "^7.3.2",
     "dotenv": "^8.0.0",
     "aws-sdk": "^2.503.0"
+  },
+  "dependencies": {
+    "util": "^0.12.1"
   }
 }
