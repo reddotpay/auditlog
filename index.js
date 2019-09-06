@@ -12,13 +12,14 @@ class RDPLog {
   }
   displayLog() {
     // console developer logs
-    logArray = logArray.map(log => {
-      if (log.length === 1) {
-        return `${JSON.stringify(log[0])}`;
-      }
-      return `${JSON.stringify(log)}`;
-    });
-    console.log(logArray);
+
+    // logArray = logArray.map(log => {
+    //   if (log.length === 1) {
+    //     return `${JSON.stringify(log[0])}`;
+    //   }
+    //   return `${JSON.stringify(log)}`;
+    // });
+    console.log(JSON.stringify(logArray));
 
     // stream audit logs
     if (auditArray.length > 0) {
