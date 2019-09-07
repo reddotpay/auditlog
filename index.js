@@ -23,7 +23,7 @@ class RDPLog {
     };
 
     // console developer logs
-    console.log(logArray);
+    console.log(logArray.join('\n'));
 
     return response;
   }
