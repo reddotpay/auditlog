@@ -15,13 +15,17 @@ class RDPLog {
     }
   }
   async displayLog() {
+    let response;
+
     // stream audit logs
     if (auditArray.length > 0) {
-      return save(auditArray);
+      response = await save(auditArray);
     };
 
     // console developer logs
     console.log(logArray);
+
+    return response;
   }
 }
 
