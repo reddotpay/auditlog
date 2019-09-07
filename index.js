@@ -14,7 +14,7 @@ class RDPLog {
       logArray.push(JSON.stringify(log));
     }
   }
-  displayLog() {
+  async displayLog() {
     // console developer logs
     if (logArray.length > 0) {
       console.log(logArray);
