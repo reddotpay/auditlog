@@ -94,7 +94,7 @@ returnResponse:
 ```
 // Audit
 
-`Audit: Successfully streamed ${numberOfLog} audit log`
+`Audit Log: Successfully streamed ${numberOfLog} audit log`
 ```
 ```
 // Developer

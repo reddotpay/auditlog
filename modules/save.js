@@ -28,7 +28,7 @@ const save = async (auditList) => {
     return e;
   }
 
-  logArray.push(`Audit: Successfully streamed ${auditList.length} audit log`);
+  logArray.push(`Audit Log: Successfully streamed ${auditList.length} audit log`);
 
   return promise;
 };
