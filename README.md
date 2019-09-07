@@ -5,8 +5,18 @@ Audit log npm package for RDP products
 
 ### Install
 1. `npm install @reddotpay/rdp-auditlog`
-2. refer to `.env.example` for environment variables
-3. `npm install dotenv` for *local development only*
+2. refer to *Sample Environment File* for environment variables
+
+### Install *(local development)*
+1. `npm install @reddotpay/rdp-auditlog`
+2. `npm install dotenv aws-sdk --save-dev`
+3. refer to *Sample Environment File*  for environment variables
+
+##### Sample Environment File
+```
+ENVIRONMENT=***
+DELIVERY_STREAM_NAME=***
+```
 
 ### Requirements
 AWS Role can refer to either *Managed Policy ARN* or *Policy* below.
@@ -50,7 +60,7 @@ const rdpLog = require('@reddotpay/rdp-auditlog');
 Audit:      rdpLog.log(product, user, summary, message);
 Developer:  rdpLog.storeLog(log);
 
-rdpLog.displayLog(); // must be called once at the end
+await rdpLog.displayLog(); // must be called once at the end
 ```
 
 ##### Parameters
@@ -62,16 +72,32 @@ message     [Any]
 log         [Any]
 ```
 
+##### Debug
+```
+const returnResponse = await rdpLog.displayLog();
+
+console.log(returnResponse);
+```
+
 ##### Response
 ```
-// Audit: Render as console log
+returnResponse:
 {
-    code: 200,
-    message: Successfully streamed ${noOfLogs} audit to firehose
+    FailedPutCount: 0,
+    Encrypted: false,
+    RequestResponses: [{
+        RecordId: 'streamId',
+    }],
 }
 ```
+###### Console Log
 ```
-// Developer: Render as console log
+// Audit
+
+`Audit: Successfully streamed ${numberOfLog} audit log`
+```
+```
+// Developer
 [
     ['log 1'],
     ['log 2'],
