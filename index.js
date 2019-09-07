@@ -1,6 +1,6 @@
 const { transform } = require('./modules/transform');
 const { save } = require('./modules/save');
-let { logArray, auditArray } = require('./modules/logger');
+const { logArray, auditArray } = require('./modules/logger');
 
 class RDPLog {
   log(product, user, summary, ...message) {
@@ -15,15 +15,13 @@ class RDPLog {
     }
   }
   async displayLog() {
-    // console developer logs
-    if (logArray.length > 0) {
-      console.log(logArray);
-    }
-
     // stream audit logs
     if (auditArray.length > 0) {
       return save(auditArray);
     };
+
+    // console developer logs
+    console.log(logArray);
   }
 }
 

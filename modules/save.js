@@ -1,6 +1,7 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 const AWS = require('aws-sdk');
 const { environment, deliveryStreamName } = require('../config');
+const { logArray } = require('./logger');
 
 AWS.config.update({ region: 'ap-southeast-1' });
 let firehose = new AWS.Firehose();
@@ -8,6 +9,7 @@ let firehose = new AWS.Firehose();
 const save = async (auditList) => {
   const env = environment;
   const displayLog = env === 'dev' || env === 'development' || env === 'stag' || env === 'staging';
+  let promise;
 
   const records = auditList.map(audit => {
     return {
@@ -21,32 +23,14 @@ const save = async (auditList) => {
   }
 
   try {
-    return await firehose.putRecordBatch(params).promise();
+    promise = await firehose.putRecordBatch(params).promise();
   } catch(e) {
     return e;
   }
 
-  // return firehose.putRecordBatch(params, (err, data) => {
-  //   const promise = new Promise((resolve, reject) => {
-  //     if (err) {
-  //       reject(err);
-  //     }
-  //     if (displayLog) {
-  //       let response = {
-  //         code: 200,
-  //         message: `Successfully streamed ${auditList.length} audit to firehose`,
-  //       }
-  //       console.log(response);
-  //     }
-  //     resolve(data);
-  //   });
-    
-  //   promise.then(res => {
-  //     return res;
-  //   }).catch(err => {
-  //     return err;
-  //   });
-  // });
+  logArray.push(`Audit: Successfully streamed ${auditList.length} audit log`);
+
+  return promise;
 };
 
 // ### For Unit Testing ###
