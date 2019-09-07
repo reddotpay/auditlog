@@ -8,23 +8,22 @@ class RDPLog {
     auditArray.push(audit);
   }
   storeLog(...log) {
-    logArray.push(log);
+    if (log.length === 1) {
+      logArray.push(JSON.stringify(log[0]));
+    } else {
+      logArray.push(JSON.stringify(log));
+    }
   }
   displayLog() {
     // console developer logs
-
-    // logArray = logArray.map(log => {
-    //   if (log.length === 1) {
-    //     return `${JSON.stringify(log[0])}`;
-    //   }
-    //   return `${JSON.stringify(log)}`;
-    // });
-    console.log(JSON.stringify(logArray));
+    if (logArray.length > 0) {
+      console.log(logArray);
+    }
 
     // stream audit logs
     if (auditArray.length > 0) {
       return save(auditArray);
-    }
+    };
   }
 }
 

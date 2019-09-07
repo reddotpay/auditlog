@@ -5,13 +5,13 @@ const { environment, deliveryStreamName } = require('../config');
 AWS.config.update({ region: 'ap-southeast-1' });
 let firehose = new AWS.Firehose();
 
-const save = (auditList) => {
+const save = async (auditList) => {
   const env = environment;
   const displayLog = env === 'dev' || env === 'development' || env === 'stag' || env === 'staging';
 
-  const records = auditList.map(d => {
+  const records = auditList.map(audit => {
     return {
-      Data: Buffer.from(JSON.stringify(d, null, 2))
+      Data: Buffer.from(JSON.stringify(audit, null, 2))
     };
   });
 
@@ -20,27 +20,33 @@ const save = (auditList) => {
     Records: records,
   }
 
-  return firehose.putRecordBatch(params, (err, data) => {
-    const promise = new Promise((resolve, reject) => {
-      if (err) {
-        reject(err);
-      }
-      if (displayLog) {
-        let response = {
-          code: 200,
-          message: `Successfully streamed ${auditList.length} audit to firehose`,
-        }
-        console.log(response);
-      }
-      resolve(data);
-    });
+  try {
+    return await firehose.putRecordBatch(params).promise();
+  } catch(e) {
+    return e;
+  }
+
+  // return firehose.putRecordBatch(params, (err, data) => {
+  //   const promise = new Promise((resolve, reject) => {
+  //     if (err) {
+  //       reject(err);
+  //     }
+  //     if (displayLog) {
+  //       let response = {
+  //         code: 200,
+  //         message: `Successfully streamed ${auditList.length} audit to firehose`,
+  //       }
+  //       console.log(response);
+  //     }
+  //     resolve(data);
+  //   });
     
-    promise.then(res => {
-      return res;
-    }).catch(err => {
-      return err;
-    });
-  });
+  //   promise.then(res => {
+  //     return res;
+  //   }).catch(err => {
+  //     return err;
+  //   });
+  // });
 };
 
 // ### For Unit Testing ###

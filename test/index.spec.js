@@ -19,7 +19,7 @@ const nestedObjSample = {
         }
      }
   }
-}; 
+};
 
 let sinonSandbox = sinon.createSandbox();
 
@@ -28,12 +28,12 @@ describe('index.js ->', () => {
     it('should return both audit and console logs in an array', async () => {
       sinonSandbox = stubFirehoseInstance(sinonSandbox, 'createSuccessStub');
       rdpLog.log('product', 'user', 'summary', 'message');
-      rdpLog.storeLog(nestedObjSample);
-      rdpLog.storeLog('log2', {testKey: "testValue"});
-      rdpLog.storeLog(['log3', 'log4']);
+      rdpLog.storeLog(nestedObjSample); // a nested object params
+      rdpLog.storeLog(['log2', 'log3']); // an array param
+      rdpLog.storeLog('log4', {testKey: "log5"}); // more than one params
       rdpLog.displayLog();
       expect(logArray).to.be.an('array');
       sinonSandbox.restore();
-    })
+    });
   });
 });;
