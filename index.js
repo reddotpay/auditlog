@@ -1,4 +1,5 @@
 const { transform } = require('./modules/transform');
+const { convertToString } = require('./modules/convert');
 const { save } = require('./modules/save');
 const { logArray, auditArray } = require('./modules/logger');
 
@@ -9,9 +10,11 @@ class RDPLog {
   }
   storeLog(...log) {
     if (log.length === 1) {
-      logArray.push(JSON.stringify(log[0]));
+      // logArray.push(JSON.stringify(log[0]));
+      logArray.push(convertToString(log[0]));
     } else {
-      logArray.push(JSON.stringify(log));
+      // logArray.push(JSON.stringify(log));
+      logArray.push(convertToString(log));
     }
   }
   async displayLog() {
