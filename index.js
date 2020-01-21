@@ -1,20 +1,74 @@
-const { transform } = require('./modules/transform');
-const { convertToString } = require('./modules/convert');
+const general = require('./modules/general');
 const { save } = require('./modules/save');
 const { logArray, auditArray } = require('./modules/logger');
 
 class RDPLog {
-  log(product, user, summary, ...message) {
-    const audit = transform('audit', product, user, summary, ...message);
-    auditArray.push(audit);
+  // log(...info) {
+  //   const obj = {
+  //     type: 'info',
+  //     timestamp: new Date().toUTCString(),
+  //     info,
+  //   };
+  //   logArray.push(obj);
+  // }
+
+  error(errorObj, ...info) {
+    const obj = {
+      type: 'error',
+      timestamp: new Date().toUTCString(),
+      errorstack: errorObj,
+      info,
+    };
+    logArray.push(obj);
   }
+
+  async audit(event, response) {
+    let auditBody;
+
+    if (environment !== 'local') {
+      const { headers, requestContext, httpMethod, path, body } = event;
+      const productIndex = headers.Host.indexOf('.api');
+
+      auditBody = {
+        product: headers.Host.substr(0, productIndex),
+        summary: `${path}[${httpMethod}]`,
+        time: requestContext.requestTime,
+        user: requestContext.authorizer && {
+          companyId: requestContext.authorizer.companyid,
+          groupId: requestContext.authorizer.groupid,
+          userId: requestContext.authorizer.uuid,
+          username: requestContext.authorizer.username,
+        },
+        traceId: headers['X-Amzn-Trace-Id'],
+        stacktrace: general.getStackTrace(),
+        payload: body ? body : null,
+        response,
+        stackObj: logArray,
+      };
+
+      return save([auditBody]);
+    } else {
+      if (displayAuditlog === 'true') {
+        const { requestContext, httpMethod, body } = event;
+
+        auditBody = {
+          summary: `${requestContext.path}[${httpMethod}]`,
+          stacktrace: general.getStackTrace(),
+          payload: body ? body : null,
+          response,
+          stackObj: logArray,
+        };
+      }
+    }
+    console.log('auditBody>>', auditBody);
+  }
+
+  // *** DEPRECATED ***
   storeLog(...log) {
     if (log.length === 1) {
-      // logArray.push(JSON.stringify(log[0]));
-      logArray.push(convertToString(log[0]));
+      logArray.push(general.convertToString(log[0]));
     } else {
-      // logArray.push(JSON.stringify(log));
-      logArray.push(convertToString(log));
+      logArray.push(general.convertToString(log));
     }
   }
   async displayLog() {
@@ -29,6 +83,10 @@ class RDPLog {
     console.log(logArray.join('\n'));
 
     return response;
+  }
+  log(product, user, summary, ...message) {
+    const audit = general.transform('audit', product, user, summary, ...message);
+    auditArray.push(audit);
   }
 }
 
