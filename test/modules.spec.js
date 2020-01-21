@@ -1,7 +1,7 @@
 const expect = require('chai').expect;
 const sinon = require('sinon');
 
-const { transform } = require('../modules/transform');
+const general = require('../modules/general');
 const { logArray, auditArray } = require('../modules/logger');
 
 describe('Modules Folder ->', () => {
@@ -11,9 +11,9 @@ describe('Modules Folder ->', () => {
 			sinon.stub(console, type);
 		});
 	});
-	describe('transform.js -> transform(flag, product, user, summary, ...message)', () => {
+	describe('general.js -> transform(flag, product, user, summary, ...message)', () => {
 		it('should return an object when everything is valid', () => {
-			const result = transform('flag', 'product', 'user', 'summary', 'list of messages');
+			const result = general.transform('flag', 'product', 'user', 'summary', 'list of messages');
 			expect(result).to.be.an('object');
 			expect(result).to.have.keys(['createdAt', 'flag', 'product', 'user', 'summary', 'message']);
 			expect(result.createdAt).to.be.a('string');
@@ -24,7 +24,7 @@ describe('Modules Folder ->', () => {
 			expect(result.message).to.be.an('array');
 		});
 		it("should return 'root' user when user field is empty", () => {
-			const result = transform('flag', 'product', '', 'summary', 'list of messages');
+			const result = general.transform('flag', 'product', '', 'summary', 'list of messages');
 			expect(result).to.be.an('object');
 			expect(result).to.have.keys(['createdAt', 'flag', 'product', 'user', 'summary', 'message']);
 			expect(result.createdAt).to.be.a('string');
@@ -35,7 +35,7 @@ describe('Modules Folder ->', () => {
 			expect(result.message).to.be.an('array');
 		});
 		it('should return undefined product when product field is empty', () => {
-			const result = transform('flag', '', 'user', 'summary', 'list of messages');
+			const result = general.transform('flag', '', 'user', 'summary', 'list of messages');
 			expect(result).to.be.an('object');
 			expect(result).to.have.keys(['createdAt', 'flag', 'user', 'summary', 'message']);
 			expect(result.createdAt).to.be.a('string');
