@@ -1,14 +1,11 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 const AWS = require('aws-sdk');
-const { environment, deliveryStreamName } = require('../config');
-const { logArray } = require('./logger');
+const { deliveryStreamName } = require('../config');
 
 AWS.config.update({ region: 'ap-southeast-1' });
 let firehose = new AWS.Firehose();
 
 const save = async (auditList) => {
-  const env = environment;
-  const displayLog = env === 'dev' || env === 'development' || env === 'stag' || env === 'staging';
   let promise;
 
   const records = auditList.map(audit => {
@@ -27,8 +24,6 @@ const save = async (auditList) => {
   } catch(e) {
     return e;
   }
-
-  logArray.push(`Audit Log: Successfully streamed ${auditList.length} audit log`);
 
   return promise;
 };

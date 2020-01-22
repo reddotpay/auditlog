@@ -1,38 +1,40 @@
 const general = require('./modules/general');
 const { save } = require('./modules/save');
 const { logArray, auditArray } = require('./modules/logger');
+const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
-  // log(...info) {
-  //   const obj = {
-  //     type: 'info',
-  //     timestamp: new Date().toUTCString(),
-  //     info,
-  //   };
-  //   logArray.push(obj);
-  // }
+  log(...info) {
+    const obj = {
+      type: 'info',
+      createdAt: new Date().toUTCString(),
+      info: general.convertToString(...info),
+    };
+    logArray.push(obj);
+  }
 
   error(errorObj, ...info) {
     const obj = {
       type: 'error',
-      timestamp: new Date().toUTCString(),
-      errorstack: errorObj,
-      info,
+      createdAt: new Date().toUTCString(),
+      errorstack: general.convertToString(errorObj),
+      info: general.convertToString(...info),
     };
     logArray.push(obj);
   }
 
   async audit(event, response) {
-    let auditBody;
+    let auditResponse;
+    let data;
 
     if (environment !== 'local') {
       const { headers, requestContext, httpMethod, path, body } = event;
       const productIndex = headers.Host.indexOf('.api');
 
-      auditBody = {
+      auditResponse = {
         product: headers.Host.substr(0, productIndex),
         summary: `${path}[${httpMethod}]`,
-        time: requestContext.requestTime,
+        createdAt: new Date().toUTCString(),
         user: requestContext.authorizer && {
           companyId: requestContext.authorizer.companyid,
           groupId: requestContext.authorizer.groupid,
@@ -40,27 +42,52 @@ class RDPLog {
           username: requestContext.authorizer.username,
         },
         traceId: headers['X-Amzn-Trace-Id'],
-        stacktrace: general.getStackTrace(),
+        lastStacktrace: general.getStackTrace(),
+        stacktraceArray: logArray,
         payload: body ? body : null,
         response,
-        stackObj: logArray,
       };
 
-      return save([auditBody]);
+      data = await save([auditResponse]);
     } else {
-      if (displayAuditlog === 'true') {
-        const { requestContext, httpMethod, body } = event;
+      const { requestContext, httpMethod, body } = event;
 
-        auditBody = {
-          summary: `${requestContext.path}[${httpMethod}]`,
-          stacktrace: general.getStackTrace(),
-          payload: body ? body : null,
-          response,
-          stackObj: logArray,
-        };
-      }
+      auditResponse = {
+        summary: `${requestContext.path}[${httpMethod}]`,
+        createdAt: new Date().toUTCString(),
+        lastStacktrace: general.getStackTrace(),
+        stacktraceArray: logArray,
+        payload: body ? body : null,
+        response,
+      };
+
+      data = 'LOCAL ENVIRONMENT';
     }
-    console.log('auditBody>>', auditBody);
+
+    if (displayAuditlog === 'true') {
+      console.log('auditResponse>>', auditResponse);      
+    }
+
+    return data;
+  }
+
+  maskEmail(email) {
+    const username = email.split('@')[0];
+    const firstThreeUsername = username.substr(0,3);
+    const domain = email.split('@')[1];
+  
+    return firstThreeUsername + star.repeat(username.length - 3) + '@' + domain;
+  }
+
+  maskCard(cardNumber) {
+    const digitsShown = 4;
+    const cardLength = cardNumber.length;
+    const last4Digit = cardNumber.substring(cardLength-digitsShown);
+    return star.repeat(cardLength-digitsShown) + last4Digit;
+  }
+
+  maskString(string) {
+    return star.repeat(string.length);
   }
 
   // *** DEPRECATED ***
@@ -84,10 +111,10 @@ class RDPLog {
 
     return response;
   }
-  log(product, user, summary, ...message) {
-    const audit = general.transform('audit', product, user, summary, ...message);
-    auditArray.push(audit);
-  }
+  // log(product, user, summary, ...message) {
+  //   const audit = general.transform('audit', product, user, summary, ...message);
+  //   auditArray.push(audit);
+  // }
 }
 
 const rdpLog = new RDPLog();

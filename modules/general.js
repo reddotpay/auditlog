@@ -20,8 +20,7 @@ module.exports = {
     const oldStack = Error.prepareStackTrace;
     const err = new Error();
     Error.prepareStackTrace = (e, stack) => stack;
-    console.log('stack trace>>', err.stack);
-    console.log('typeof stack trace>>', typeof err.stack);
+    err.stack.shift();
     err.stack.shift();
     const lastTrace = err.stack.shift();
     const caller = lastTrace.toString();
@@ -35,8 +34,6 @@ module.exports = {
     transformedRecord.summary = summary;
     if(product && product !== null && product !== "") {
       transformedRecord.product = product;
-    } else {
-      // logArray.push('Audit Log: Product field cannot be empty or omitted');
     }
     if(user && user !== null && user !== "") {
       transformedRecord.user = user;
