@@ -16,6 +16,7 @@ Audit log npm package for RDP products
 ```
 ENVIRONMENT=***
 DELIVERY_STREAM_NAME=***
+DISPLAY_AUDITLOG==***
 ```
 
 ### Requirements
@@ -53,35 +54,53 @@ Properties:
 
 ### Usage
 
+#### Primary Function
+```
+rdp.log(...info);
+rdp.error(errorObj, ...info);
+await rdp.audit(event, response);
+```
+
 ##### Example
 ```
-const rdpLog = require('@reddotpay/rdp-auditlog');
+// index.js
 
-Audit:      rdpLog.log(product, user, summary, message);
-Developer:  rdpLog.storeLog(log);
+const rdp = require('@reddotpay/rdp-auditlog');
 
-await rdpLog.displayLog(); // must be called once at the end
+exports.handler = async (event) => {
+    /*
+        All the Lambda Routes
+    */
+
+    await rdp.audit(event, response);
+
+    return response;
+}
 ```
 
-##### Parameters
 ```
-product     [String]
-user        [String]    (default="root")
-summary     [String]
-message     [Any]
-log         [Any]
-```
+// models/test.js
 
-##### Debug
-```
-const returnResponse = await rdpLog.displayLog();
+const axios = require('axios');
+const rdp = require('@reddotpay/rdp-auditlog');
 
-console.log(returnResponse);
+axios.interceptors.request.use((request) => {
+	rdp.log(request);
+	return request;
+});
+
+axios.interceptors.response.use(response => response, (error) => {
+	rdp.error(error);
+	return error;
+});
+
+/*
+    Axios Functions
+*/
 ```
 
 ##### Response
 ```
-returnResponse:
 {
     FailedPutCount: 0,
     Encrypted: false,
@@ -90,17 +109,22 @@ returnResponse:
     }],
 }
 ```
-###### Console Log
-```
-// Audit
 
-`Audit Log: Successfully streamed ${numberOfLog} audit log`
+#### Additional Function
 ```
+rdp.maskEmail(email);
+rdp.maskCard(cardNumber);
+rdp.maskString(string);
 ```
-// Developer
-[
-    ['log 1'],
-    ['log 2'],
-    ...
-]
+
+##### Example
+```
+const maskedEmail = rdp.maskEmail('username@domain.com');
+// use*****@domain.com
+
+const maskedCard = rdp.maskCard('1111222233334444');
+// ****************
+
+const maskedString = rdp.maskString('teststring');
+// **********
 ```
