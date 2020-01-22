@@ -8,8 +8,9 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      info: general.convertToString(...info),
+      info,
     };
+    obj.info = general.convertToString(obj.info);
     logArray.push(obj);
   }
 
@@ -18,8 +19,9 @@ class RDPLog {
       type: 'error',
       createdAt: new Date().toUTCString(),
       errorstack: general.convertToString(errorObj),
-      info: general.convertToString(...info),
+      info,
     };
+    obj.info = general.convertToString(obj.info);
     logArray.push(obj);
   }
 
