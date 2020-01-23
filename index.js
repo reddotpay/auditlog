@@ -30,7 +30,7 @@ class RDPLog {
     let auditResponse;
     let data;
 
-    if (environment === 'staging' || environment === 'production') {
+    if (environment !== 'local') {
       const {
         headers, requestContext, httpMethod, path, body, queryStringParameters,
       } = event;
@@ -56,10 +56,12 @@ class RDPLog {
         response,
       };
 
-      data = await save([auditResponse]);
+      if (environment === 'staging' || environment === 'production ') {
+        data = await save([auditResponse]);
+      }
     } else {
       const {
-        requestContext, httpMethod, headers, body, queryStringParameters,
+        path, httpMethod, headers, body, queryStringParameters,
       } = event;
 
       auditResponse = {
