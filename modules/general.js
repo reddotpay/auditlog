@@ -16,12 +16,14 @@ module.exports = {
 
     return res;
   },
-  getStackTrace: () => {
+  getStackTrace: (deeper, deepest) => {
     const oldStack = Error.prepareStackTrace;
     const err = new Error();
     Error.prepareStackTrace = (e, stack) => stack;
     err.stack.shift();
     err.stack.shift();
+    if (deeper) err.stack.shift();
+    if (deepest) err.stack.shift();
     const lastTrace = err.stack.shift();
     const caller = lastTrace.toString();
     Error.prepareStackTrace = oldStack;
