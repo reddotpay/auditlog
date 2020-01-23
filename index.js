@@ -8,9 +8,9 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      caller: general.getStackTrace(),
-      summary,
-      detail: variable,
+      caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
+      summary: typeof summary === 'string' ? summary : null,
+      detail: typeof variable === 'object' ? variable : summary,
     };
     logArray.push(obj);
   }
@@ -19,9 +19,9 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      caller: general.getStackTrace(),
-      summary,
-      errorstack: error,
+      caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
+      summary: typeof summary === 'string' ? summary : null,
+      errorstack: typeof error === 'object' ? error : summary,
     };
     logArray.push(obj);
   }
@@ -31,7 +31,9 @@ class RDPLog {
     let data;
 
     if (environment !== 'local') {
-      const { headers, requestContext, httpMethod, path, body } = event;
+      const {
+        headers, requestContext, httpMethod, path, body, queryStringParameters,
+      } = event;
       const productIndex = headers.Host.indexOf('.api');
 
       auditResponse = {
@@ -46,19 +48,29 @@ class RDPLog {
         },
         traceId: headers['X-Amzn-Trace-Id'],
         stacktraceArray: logArray,
-        payload: body ? body : null,
+        payload: {
+          headers,
+          queryStringParameters,
+          body,
+        },
         response,
       };
 
       data = await save([auditResponse]);
     } else {
-      const { requestContext, httpMethod, body } = event;
+      const {
+        requestContext, httpMethod, headers, body, queryStringParameters,
+      } = event;
 
       auditResponse = {
         summary: `${requestContext.path}[${httpMethod}]`,
         createdAt: new Date().toUTCString(),
         stacktraceArray: logArray,
-        payload: body ? body : null,
+        payload: {
+          headers,
+          body,
+          queryStringParameters,
+        },
         response,
       };
 
