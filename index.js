@@ -10,7 +10,6 @@ class RDPLog {
       createdAt: new Date().toUTCString(),
       info,
     };
-    obj.info = general.convertToString(obj.info);
     logArray.push(obj);
   }
 
@@ -18,10 +17,9 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      errorstack: general.convertToString(errorObj),
+      errorstack: errorObj,
       info,
     };
-    obj.info = general.convertToString(obj.info);
     logArray.push(obj);
   }
 
@@ -67,7 +65,7 @@ class RDPLog {
     }
 
     if (displayAuditlog === 'true') {
-      console.log('auditResponse>>', auditResponse);      
+      console.log(general.convertToString(auditResponse));      
     }
 
     return data;
