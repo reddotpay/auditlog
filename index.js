@@ -48,7 +48,7 @@ class RDPLog {
         },
         traceId: headers['X-Amzn-Trace-Id'],
         stacktraceArray: logArray,
-        payload: {
+        request: {
           headers,
           queryStringParameters,
           body,
@@ -68,7 +68,7 @@ class RDPLog {
         summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
         stacktraceArray: logArray,
-        payload: {
+        request: {
           headers,
           body,
           queryStringParameters,
