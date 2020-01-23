@@ -14,9 +14,9 @@ Audit log npm package for RDP products
 
 ##### Sample Environment File
 ```
-ENVIRONMENT=***
-DELIVERY_STREAM_NAME=***
-DISPLAY_AUDITLOG==***
+ENVIRONMENT=development | staging | production
+DELIVERY_STREAM_NAME=$RDP_AUDITLOGS_STREAM_DEV | $RDP_AUDITLOGS_STREAM | $RDP_AUDITLOGS_STREAM_PROD
+DISPLAY_AUDITLOG=true
 ```
 
 ### Requirements
