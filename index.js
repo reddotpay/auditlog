@@ -30,7 +30,7 @@ class RDPLog {
     let auditResponse;
     let data;
 
-    if (environment !== 'local') {
+    if (environment === 'staging' || environment === 'production') {
       const {
         headers, requestContext, httpMethod, path, body, queryStringParameters,
       } = event;
@@ -38,7 +38,7 @@ class RDPLog {
 
       auditResponse = {
         product: headers.Host.substr(0, productIndex),
-        summary: `${path}[${httpMethod}]`,
+        summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
         user: requestContext.authorizer && {
           companyId: requestContext.authorizer.companyid,
@@ -63,7 +63,7 @@ class RDPLog {
       } = event;
 
       auditResponse = {
-        summary: `${requestContext.path}[${httpMethod}]`,
+        summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
         stacktraceArray: logArray,
         payload: {
