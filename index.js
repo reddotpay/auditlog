@@ -4,21 +4,24 @@ const { logArray, auditArray } = require('./modules/logger');
 const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
-  log(...info) {
+  log(summary, variable) {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      info,
+      caller: general.getStackTrace(),
+      summary,
+      detail: variable,
     };
     logArray.push(obj);
   }
 
-  error(errorObj, ...info) {
+  error(summary, error) {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      errorstack: errorObj,
-      info,
+      caller: general.getStackTrace(),
+      summary,
+      errorstack: error,
     };
     logArray.push(obj);
   }
@@ -39,10 +42,9 @@ class RDPLog {
           companyId: requestContext.authorizer.companyid,
           groupId: requestContext.authorizer.groupid,
           userId: requestContext.authorizer.uuid,
-          username: requestContext.authorizer.username,
+          username: this.maskEmail(requestContext.authorizer.username),
         },
         traceId: headers['X-Amzn-Trace-Id'],
-        lastStacktrace: general.getStackTrace(),
         stacktraceArray: logArray,
         payload: body ? body : null,
         response,
@@ -55,7 +57,6 @@ class RDPLog {
       auditResponse = {
         summary: `${requestContext.path}[${httpMethod}]`,
         createdAt: new Date().toUTCString(),
-        lastStacktrace: general.getStackTrace(),
         stacktraceArray: logArray,
         payload: body ? body : null,
         response,
