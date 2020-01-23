@@ -56,9 +56,18 @@ Properties:
 
 #### Primary Function
 ```
-rdp.log(...info);
-rdp.error(errorObj, ...info);
-await rdp.audit(event, response);
+/*
+    DATA TYPE
+    summmary {string} - description of log / error
+    variable {any} - the variable to log
+    error {object} - error object return in catch block
+    event {object} - lambda event
+    response {object} - response that is return to frontend
+*/
+
+Function 1: rdp.log(summary, variable); - equivalent to console.log
+Function 2: rdp.error(summary, error); - equivalent to console.error
+Function 3: await rdp.audit(event, response); - only called once before lambda return response
 ```
 
 ##### Example
@@ -72,7 +81,7 @@ exports.handler = async (event) => {
         All the Lambda Routes
     */
 
-    await rdp.audit(event, response);
+    await rdp.audit(event, response); <==== fn 3
 
     return response;
 }
@@ -84,19 +93,31 @@ exports.handler = async (event) => {
 const axios = require('axios');
 const rdp = require('@reddotpay/rdp-auditlog');
 
-axios.interceptors.request.use((request) => {
-	rdp.log(request);
-	return request;
-});
+class test {
+    async get(input) {
+        try {
+            rdp.log('test get route>>', input); <==== fn 1
+            ...
+        } catch (e) {
+            rdp.error('test get route error>>', e); <==== fn 2
+            ...
+        }
 
-axios.interceptors.response.use(response => response, (error) => {
-	rdp.error(error);
-	return error;
-});
+        return;
+    }
 
-/*
-    Axios Functions
-*/
+    async post(input) {
+        try {
+            rdp.log('test get route>>', input); <==== fn 1
+            ...
+        } catch (e) {
+            rdp.error('test get route error>>', e); <==== fn 2
+            ...
+        }
+
+        return;
+    }
+}
 ```
 
 ##### Response
