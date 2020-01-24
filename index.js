@@ -99,6 +99,7 @@ class RDPLog {
       console.log(general.convertToString(auditResponse));      
     }
 
+    logArray = [];
     return data;
   }
 
