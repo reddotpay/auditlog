@@ -8,10 +8,18 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
+      // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
       detail: typeof variable === 'object' ? variable : summary,
     };
+    const firstTrace = general.getStackTrace();
+    const secondTrace = general.getStackTrace(true);
+    const thirdTrace = general.getStackTrace(true, true);
+
+    if (firstTrace) obj.caller.push(firstTrace);
+    if (secondTrace) obj.caller.push(secondTrace);
+    if (thirdTrace) obj.caller.push(thirdTrace);
+
     logArray.push(obj);
   }
 
@@ -19,10 +27,18 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
+      // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
       errorstack: typeof error === 'object' ? error : summary,
     };
+    const firstTrace = general.getStackTrace();
+    const secondTrace = general.getStackTrace(true);
+    const thirdTrace = general.getStackTrace(true, true);
+
+    if (firstTrace) obj.caller.push(firstTrace);
+    if (secondTrace) obj.caller.push(secondTrace);
+    if (thirdTrace) obj.caller.push(thirdTrace);
+
     logArray.push(obj);
   }
 

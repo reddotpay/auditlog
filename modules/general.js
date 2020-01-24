@@ -25,7 +25,7 @@ module.exports = {
     if (deeper) err.stack.shift();
     if (deepest) err.stack.shift();
     const lastTrace = err.stack.shift();
-    const caller = lastTrace.toString();
+    const caller = lastTrace.length > 0 ? lastTrace.toString() : null;
     Error.prepareStackTrace = oldStack;
     return caller;
   },
