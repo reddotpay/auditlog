@@ -1,6 +1,6 @@
 const general = require('./modules/general');
 const { save } = require('./modules/save');
-const { logArray, auditArray } = require('./modules/logger');
+let { logArray, auditArray } = require('./modules/logger');
 const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
