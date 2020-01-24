@@ -60,7 +60,7 @@ class RDPLog {
           companyId: requestContext.authorizer.companyid,
           groupId: requestContext.authorizer.groupid,
           userId: requestContext.authorizer.uuid,
-          username: this.maskEmail(requestContext.authorizer.username),
+          username: requestContext.authorizer.username ? this.maskEmail(requestContext.authorizer.username) : null,
         },
         traceId: headers['X-Amzn-Trace-Id'],
         stacktraceArray: logArray,
