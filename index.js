@@ -50,10 +50,10 @@ class RDPLog {
       const {
         headers, requestContext, httpMethod, path, body, queryStringParameters,
       } = event;
-      const productIndex = headers.Host.indexOf('.api');
+      const productIndex = headers && headers.Host.indexOf('.api');
 
       auditResponse = {
-        product: headers.Host.substr(0, productIndex),
+        product: headers && headers.Host.substr(0, productIndex),
         summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
         user: requestContext.authorizer && {
@@ -62,7 +62,7 @@ class RDPLog {
           userId: requestContext.authorizer.uuid,
           username: requestContext.authorizer.username ? this.maskEmail(requestContext.authorizer.username) : null,
         },
-        traceId: headers['X-Amzn-Trace-Id'],
+        traceId: headers && headers['X-Amzn-Trace-Id'],
         stacktraceArray: logArray,
         request: {
           headers,

@@ -45,4 +45,12 @@ module.exports = {
     transformedRecord.message = [...message];
     return transformedRecord;
   },
+  pathExist: (path) => {
+    try {
+      const requiredModule = require(path);
+      return !!requiredModule;
+    } catch (e) {
+      return false;
+    }
+  },
 };
