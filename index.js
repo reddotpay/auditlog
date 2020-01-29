@@ -10,7 +10,7 @@ class RDPLog {
       createdAt: new Date().toUTCString(),
       // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
-      detail: typeof variable === 'object' ? variable : summary,
+      detail: variable,
     };
     const firstTrace = general.getStackTrace();
     const secondTrace = general.getStackTrace(true);
@@ -29,7 +29,7 @@ class RDPLog {
       createdAt: new Date().toUTCString(),
       // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
-      errorstack: typeof error === 'object' ? error : summary,
+      errorstack: error,
     };
     const firstTrace = general.getStackTrace();
     const secondTrace = general.getStackTrace(true);
