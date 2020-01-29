@@ -56,7 +56,7 @@ class RDPLog {
         product: headers && headers.Host.substr(0, productIndex),
         summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
-        user: requestContext.authorizer && {
+        user: requestContext && requestContext.authorizer && {
           companyId: requestContext.authorizer.companyid,
           groupId: requestContext.authorizer.groupid,
           userId: requestContext.authorizer.uuid,
@@ -72,7 +72,9 @@ class RDPLog {
         response,
       };
 
-      if (environment === 'staging' || environment === 'production ') {
+      // Log to Elasticsearch
+      if ((environment === 'staging' || environment === 'production')
+        && httpMethod !== 'OPTIONS') {
         data = await save([auditResponse]);
       }
     } else {
@@ -95,8 +97,13 @@ class RDPLog {
       data = 'LOCAL ENVIRONMENT';
     }
 
+    // Log to Cloudwatch
     if (displayAuditlog === 'true') {
-      console.log(general.convertToString(auditResponse));      
+      if (httpMethod === 'OPTIONS') {
+        console.log(auditResponse.summary);
+      } else {
+        console.log(general.convertToString(auditResponse));
+      }
     }
 
     logArray = [];
