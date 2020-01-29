@@ -43,13 +43,14 @@ class RDPLog {
   }
 
   async audit(event, response) {
+    const {
+      httpMethod, path, requestContext, headers, body, queryStringParameters,
+    } = event;
+
     let auditResponse;
     let data;
 
     if (environment !== 'local') {
-      const {
-        headers, requestContext, httpMethod, path, body, queryStringParameters,
-      } = event;
       const productIndex = headers && headers.Host.indexOf('.api');
 
       auditResponse = {
@@ -78,10 +79,6 @@ class RDPLog {
         data = await save([auditResponse]);
       }
     } else {
-      const {
-        path, httpMethod, headers, body, queryStringParameters,
-      } = event;
-
       auditResponse = {
         summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
@@ -106,6 +103,7 @@ class RDPLog {
       }
     }
 
+    // Empty memory storage
     logArray = [];
     return data;
   }
