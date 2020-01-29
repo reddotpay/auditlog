@@ -1,4 +1,11 @@
-const { pathExist } = require('./modules/general');
+const pathExist = (path) => {
+  try {
+    const requiredModule = require(path);
+    return !!requiredModule;
+  } catch (e) {
+    return false;
+  }
+};
 
 let envJSON = {
   ENVIRONMENT: '',
