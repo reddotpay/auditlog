@@ -4,13 +4,9 @@
 Audit log npm package for RDP products
 
 ### Install
-1. `npm install @reddotpay/rdp-auditlog`
-2. refer to *Sample Environment File* for environment variables
-
-### Install *(local development)*
-1. `npm install @reddotpay/rdp-auditlog`
-2. `npm install dotenv aws-sdk --save-dev`
-3. refer to *Sample Environment File*  for environment variables
+1. `npm install @reddotpay/rdp-auditlog dotenv`
+2. `npm install aws-sdk --save-dev`
+3. refer to *Sample Environment File* for environment variables
 
 ##### Sample Environment File
 ```
