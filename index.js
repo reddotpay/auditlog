@@ -108,18 +108,18 @@ class RDPLog {
     const firstThreeUsername = username.substr(0,3);
     const domain = email.split('@')[1];
   
-    return firstThreeUsername + star.repeat(username.length - 3) + '@' + domain;
+    return firstThreeUsername + '*'.repeat(username.length - 3) + '@' + domain;
   }
 
   maskCard(cardNumber) {
     const digitsShown = 4;
     const cardLength = cardNumber.length;
     const last4Digit = cardNumber.substring(cardLength-digitsShown);
-    return star.repeat(cardLength-digitsShown) + last4Digit;
+    return '*'.repeat(cardLength-digitsShown) + last4Digit;
   }
 
   maskString(string) {
-    return star.repeat(string.length);
+    return '*'.repeat(string.length);
   }
 
   // *** DEPRECATED ***
