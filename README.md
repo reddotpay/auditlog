@@ -127,15 +127,21 @@ class test {
 }
 ```
 
-#### Additional Function
+#### Masking Function
 ```
+rdp.maskReturnDefault();
 rdp.maskEmail(email);
 rdp.maskCard(cardNumber);
 rdp.maskString(string);
+rdp.maskObject(object);
 ```
 
 ##### Example
 ```
+const maskReturnDefault = rdp.maskReturnDefault();
+// ****************
+remarks: default is always 16 asterisk
+
 const maskedEmail = rdp.maskEmail('username@domain.com');
 // use*****@domain.com
 
@@ -144,4 +150,20 @@ const maskedCard = rdp.maskCard('1111222233334444');
 
 const maskedString = rdp.maskString('teststring');
 // **********
+
+const maskedObject = rdp.maskObject({
+    key1: "value1",
+    key2: [1, 2, 3],
+    key3: {
+        nestedKey1: "nestedValue1",
+        nestedKey2: "nestedValue2",
+    },
+});
+/*
+{
+    key1: ****************,
+    key2: ****************,
+    key3: ****************,
+}
+*/
 ```
