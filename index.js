@@ -108,6 +108,10 @@ class RDPLog {
     return data;
   }
 
+  maskReturnDefault() {
+    return '*'.repeat(16);
+  }  
+
   maskEmail(email) {
     const username = email.split('@')[0];
     const firstThreeUsername = username.substr(0,3);
@@ -125,6 +129,14 @@ class RDPLog {
 
   maskString(string) {
     return '*'.repeat(string.length);
+  }
+
+  maskObject(object) {
+    const objectKeys = Object.keys(object);
+    objectKeys.forEach((key) => {
+      object[key] = this.maskReturnDefault();
+    })
+    return object;
   }
 
   // *** DEPRECATED ***
