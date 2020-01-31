@@ -24,28 +24,34 @@ arn:aws:iam::aws:policy/AmazonKinesisFirehoseFullAccess
 ```
 ##### Policy
 ```
-Type: AWS::IAM::Role
-Properties:
-    AssumeRolePolicyDocument:
-    Version: '2012-10-17'
-    Statement:
-    - Effect: Allow
-        Principal:
-        Service:
-            - lambda.amazonaws.com
-        Action:
-        - 'sts:AssumeRole'
-    Policies:
-    - PolicyDocument:
-        Version: '2012-10-17'
-        Statement:
-        - Effect: Allow
-            Action:
-            - 'lambda:*'
-            - 'firehose:*'
-            - 'logs:*'
-            - 'ec2:*'
-            Resource: '*'
+BackendFunctionRole
+	Type: AWS::IAM::Role
+	Properties:
+		AssumeRolePolicyDocument:
+		Version: '2012-10-17'
+		Statement:
+		- 
+			Effect: Allow
+			Action:
+			- 'sts:AssumeRole'
+			Principal:
+				Service:
+				- lambda.amazonaws.com
+
+		Policies:
+		-
+			PolicyName: {Product}BackendFunctionRole
+			PolicyDocument:
+				Version: '2012-10-17'
+				Statement:
+				- 
+					Effect: Allow
+					Action:
+					- 'lambda:*'
+					- 'firehose:*'
+					- 'logs:*'
+					- 'ec2:*'
+					Resource: '*'
 ```
 
 ### Usage
