@@ -10,6 +10,7 @@ class RDPLog {
       createdAt: new Date().toUTCString(),
       summary: typeof summary === 'string' ? summary : null,
       detail: variable,
+      caller: [],
     };
     const firstTrace = general.getStackTrace();
     const secondTrace = general.getStackTrace(true);
@@ -28,6 +29,7 @@ class RDPLog {
       createdAt: new Date().toUTCString(),
       summary: typeof summary === 'string' ? summary : null,
       errorstack: error ? general.formatError(error) : general.formatError(summary),
+      caller: [],
     };
     const firstTrace = general.getStackTrace();
     const secondTrace = general.getStackTrace(true);
