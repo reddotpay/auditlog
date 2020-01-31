@@ -45,4 +45,14 @@ module.exports = {
     transformedRecord.message = [...message];
     return transformedRecord;
   },
+  formatError: (error) => {
+    if (error && typeof error === 'object') {
+      return {
+        name: error.name,
+        message: error.message,
+        stack: error.stack.split('\n'),
+      };
+    }
+    return error;
+  },
 };

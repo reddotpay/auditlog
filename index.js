@@ -8,7 +8,6 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
       detail: variable,
     };
@@ -27,9 +26,8 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      // caller: [general.getStackTrace(),general.getStackTrace(true),general.getStackTrace(true, true)],
       summary: typeof summary === 'string' ? summary : null,
-      errorstack: error,
+      errorstack: error ? general.formatError(error) : general.formatError(summary),
     };
     const firstTrace = general.getStackTrace();
     const secondTrace = general.getStackTrace(true);
