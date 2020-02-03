@@ -50,7 +50,7 @@ module.exports = {
       return {
         name: error.name,
         message: error.message,
-        stack: error.stack.split('\n'),
+        stack: error.stack && error.stack.split('\n'),
       };
     }
     return error;
