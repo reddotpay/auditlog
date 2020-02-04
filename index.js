@@ -8,6 +8,7 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
+      sortDate: new Date().toJSON(),
       summary: typeof summary === 'string' ? summary : null,
       detail: variable,
       caller: [],
@@ -27,6 +28,7 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
+      sortDate: new Date().toJSON(),
       summary: typeof summary === 'string' ? summary : null,
       errorstack: error ? general.formatError(error) : general.formatError(summary),
       caller: [],
