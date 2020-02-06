@@ -8,7 +8,6 @@ class RDPLog {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
-      sortDate: new Date().toJSON(),
       summary: typeof summary === 'string' ? summary : null,
       detail: variable,
       caller: [],
@@ -28,7 +27,6 @@ class RDPLog {
     const obj = {
       type: 'error',
       createdAt: new Date().toUTCString(),
-      sortDate: new Date().toJSON(),
       summary: typeof summary === 'string' ? summary : null,
       errorstack: error ? general.formatError(error) : general.formatError(summary),
       caller: [],
@@ -59,6 +57,7 @@ class RDPLog {
         product: headers && headers.Host.substr(0, productIndex),
         summary: `${httpMethod} ${path}`,
         createdAt: new Date().toUTCString(),
+        sortDate: new Date().toJSON(),
         user: requestContext && requestContext.authorizer && {
           companyId: requestContext.authorizer.companyid,
           groupId: requestContext.authorizer.groupid,
