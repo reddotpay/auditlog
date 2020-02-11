@@ -9,7 +9,7 @@ class RDPLog {
       type: 'info',
       createdAt: new Date().toUTCString(),
       summary: typeof summary === 'string' ? summary : null,
-      detail: variable,
+      detail: variable ? variable : summary,
       caller: [],
     };
     const firstTrace = general.getStackTrace();
