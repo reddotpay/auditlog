@@ -133,10 +133,12 @@ class RDPLog {
   }
 
   maskObject(object) {
-    const objectKeys = Object.keys(object);
-    objectKeys.forEach((key) => {
-      object[key] = this.maskReturnDefault();
-    })
+    if (typeof object === 'object') {
+      const objectKeys = Object.keys(object);
+      objectKeys.forEach((key) => {
+        object[key] = this.maskReturnDefault();
+      })      
+    }
     return object;
   }
 
