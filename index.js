@@ -5,8 +5,8 @@ const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
   log(inputSummary, inputVariable) {
-    const summary = inputSummary ? JSON.parse(general.convertToString(inputSummary)) : inputSummary;
-    const variable = inputVariable ? JSON.parse(general.convertToString(inputVariable)) : inputVariable;
+    const summary = inputSummary ? JSON.parse(JSON.stringify(inputSummary)) : inputSummary;
+    const variable = inputVariable ? JSON.parse(JSON.stringify(inputVariable)) : inputVariable;
 
     const obj = {
       type: 'info',
