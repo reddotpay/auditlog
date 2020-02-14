@@ -4,7 +4,10 @@ let { logArray, auditArray } = require('./modules/logger');
 const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
-  log(summary, variable) {
+  log(inputSummary, inputVariable) {
+    const summary = inputSummary ? JSON.parse(general.convertToString(inputSummary)) : inputSummary;
+    const variable = inputVariable ? JSON.parse(general.convertToString(inputVariable)) : inputVariable;
+
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
