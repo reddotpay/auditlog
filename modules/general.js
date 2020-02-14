@@ -55,4 +55,16 @@ module.exports = {
     }
     return error;
   },
+  clone: (obj) => {
+    let newObj;
+
+    try {
+      newObj = obj ? JSON.parse(JSON.stringify(obj)) : obj;
+    } catch (e) {
+      // Do NOT clone circular object
+      if (e.message.includes('circular')) newObj = obj;
+    }
+
+    return newObj;
+  },
 };

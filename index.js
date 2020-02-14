@@ -4,15 +4,12 @@ let { logArray, auditArray } = require('./modules/logger');
 const { environment, displayAuditlog } = require('./config');
 
 class RDPLog {
-  log(inputSummary, inputVariable) {
-    const summary = inputSummary ? JSON.parse(JSON.stringify(inputSummary)) : inputSummary;
-    const variable = inputVariable ? JSON.parse(JSON.stringify(inputVariable)) : inputVariable;
-
+  log(summary, variable) {
     const obj = {
       type: 'info',
       createdAt: new Date().toUTCString(),
       summary: typeof summary === 'string' ? summary : null,
-      detail: variable ? variable : summary,
+      detail: variable ? general.clone(variable) : general.clone(summary),
       caller: [],
     };
     const firstTrace = general.getStackTrace();
