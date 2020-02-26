@@ -115,10 +115,14 @@ class RDPLog {
 
   maskEmail(email) {
     const username = email.split('@')[0];
-    const firstThreeUsername = username.substr(0,3);
+    const firstThreeUsername = username.substr(0, 3);
     const domain = email.split('@')[1];
+
+    let maskedEmail = email;
   
-    return firstThreeUsername + '*'.repeat(username.length - 3) + '@' + domain;
+    if (username.length > 3) maskedEmail = `${firstThreeUsername}${'*'.repeat(username.length - 3)}@${domain}`;
+
+    return maskedEmail;
   }
 
   maskCard(cardNumber) {
