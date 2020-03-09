@@ -1,6 +1,7 @@
 /* eslint no-console: ["error", { allow: ["log"] }] */
 const AWS = require('aws-sdk');
 const { deliveryStreamName } = require('../config');
+const { convertToString } = require('./general');
 
 AWS.config.update({ region: 'ap-southeast-1' });
 let firehose = new AWS.Firehose();
@@ -10,7 +11,7 @@ const save = async (auditList) => {
 
   const records = auditList.map(audit => {
     return {
-      Data: Buffer.from(JSON.stringify(audit, null, 2))
+      Data: Buffer.from(convertToString(audit)),
     };
   });
 
