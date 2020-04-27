@@ -28,28 +28,28 @@ const instantPayResSample = {
    { 'content-type': 'application/json; charset=utf-8',
      'content-length': '669',
      connection: 'close',
-     date: 'Tue, 08 Oct 2019 09:04:24 GMT',
-     'x-amzn-requestid': 'befe8b4b-7a7e-4201-8033-afd5a847b26a',
+     date: 'Tue, 31 Dec 2069 00:00:00 GMT',
+     'x-amzn-requestid': 'befe8b4b-****-****-****-afd5a847b26a',
      'x-amzn-remapped-content-length': '669',
      'x-amzn-remapped-connection': 'close',
-     'x-amz-apigw-id': 'BPGbKG7VyQ0Fkgw=',
+     'x-amz-apigw-id': 'xxxxxxxxxxxxxxxx',
      vary: 'Origin',
-     etag: 'W/"29d-d6Y7nsC3QSm53yIJpdO2sO/vRPA"',
+     etag: 'W/"xxxx/vRPA"',
      'x-powered-by': 'Express',
      'x-amzn-trace-id': 'Root=1-5d9c5114-3f9a1c94041dd0c95449eacb',
-     'x-amzn-remapped-date': 'Tue, 08 Oct 2019 09:04:24 GMT',
+     'x-amzn-remapped-date': 'Tue, 31 Dec 2069 00:00:00 GMT',
      'x-cache': 'Miss from cloudfront',
-     via: '1.1 7e15719c90fc4193eff06d80a6052925.cloudfront.net (CloudFront)',
-     'x-amz-cf-pop': 'SIN52-C2',
-     'x-amz-cf-id': 'l8KfZKzylz8dDHTQ3ysbGKdl5DqCB0L_6ip8lIOssKjWJFchsKGjHA==' },
+     via: '1.1 xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.cloudfront.net (CloudFront)',
+     'x-amz-cf-pop': 'xxxxx-xx',
+     'x-amz-cf-id': 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx' },
   config: 
-   { url: 'https://connect2.api.reddotpay.sg/v1/payments/token/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac',
+   { url: 'https://xxx.sg/v1/payments/token/xxx',
      method: 'post',
-     data: '{"orderId":"PAYsss201910080904126822Cjy","amount":"310.00","currency":"SGD"}',
+     data: '{"orderId":"xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx","amount":"100.00","currency":"SGD"}',
      headers: 
       { Accept: 'application/json, text/plain, */*',
         'Content-Type': 'application/json',
-        Authorization: 'eyJraWQiOiJQcmRPSTlhZGU0ZlVuYUVYQVJ5R1Z0STZFQ01hbEZ5ZEtLdW9RelhnS3ljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1ZnUydmxrdXVtZTNzc3Vzc3BsbzFrZDdqNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiaHR0cHM6XC9cL2R1bW15LmFwaS5yZWRkb3RwYXkuc2dcL2R1bW15IiwiYXV0aF90aW1lIjoxNTcwNTI1NDU4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGhlYXN0LTFfMzFCRE0xaFVzIiwiZXhwIjoxNTcwNTI5MDU4LCJpYXQiOjE1NzA1MjU0NTgsInZlcnNpb24iOjIsImp0aSI6ImYxMTAyM2U5LWE1M2EtNDdlMS1iMTJkLTY5YjAwNjM4NDkzMyIsImNsaWVudF9pZCI6IjVmdTJ2bGt1dW1lM3NzdXNzcGxvMWtkN2o2In0.BP4H5Sgbj3rHfO-MHXWMgXSBiGqKyDbcPdIFDrANFIOL8vpfGKftUhA9j-RhdfV8jN7NdmxQ5Qu4hrfRagxMwW1exQ3-Pi8N_XPUojUJRncwZlWjPty33yM1vW59VLY5Li5xeC64Es7BkdIpbfqqMFbTQyl8xfBNpoHOjSxPclcdQ-RrHm0ayLMkcdldvUBPX98ym26NYh8pIkYcPsXWGI3DwV-Ib8PizT1UGKMHX1lvN-rL6lAxjY0MLcisKAKgEXj0sjoM3FsWLi75JO3s4XLLAHhwA8NBZfm-7mqnJpSDRRE9LcS4aNeFMYyiv9BqyZplAHsUS-qcJRWkCXZTuA',
+        Authorization: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
         'User-Agent': 'axios/0.19.0',
         'Content-Length': 76 },
      transformRequest: [ [Function] ],
@@ -111,7 +111,7 @@ const instantPayResSample = {
         _hadError: false,
         _handle: null,
         _parent: null,
-        _host: 'connect2.api.reddotpay.sg',
+        _host: 'xxx.sg',
         _readableState: [Object],
         readable: false,
         domain: null,
@@ -158,7 +158,7 @@ const instantPayResSample = {
         _hadError: false,
         _handle: null,
         _parent: null,
-        _host: 'connect2.api.reddotpay.sg',
+        _host: 'xxx.sg',
         _readableState: [Object],
         readable: false,
         domain: null,
@@ -185,7 +185,7 @@ const instantPayResSample = {
         [Symbol('asyncId')]: 210,
         [Symbol('bytesRead')]: 1368 },
       },
-     _header: 'POST /v1/payments/token/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac HTTP/1.1\r\nAccept: application/json, text/plain, */*\r\nContent-Type: application/json\r\nAuthorization: eyJraWQiOiJQcmRPSTlhZGU0ZlVuYUVYQVJ5R1Z0STZFQ01hbEZ5ZEtLdW9RelhnS3ljPSIsImFsZyI6IlJTMjU2In0.eyJzdWIiOiI1ZnUydmxrdXVtZTNzc3Vzc3BsbzFrZDdqNiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiaHR0cHM6XC9cL2R1bW15LmFwaS5yZWRkb3RwYXkuc2dcL2R1bW15IiwiYXV0aF90aW1lIjoxNTcwNTI1NDU4LCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuYXAtc291dGhlYXN0LTEuYW1hem9uYXdzLmNvbVwvYXAtc291dGhlYXN0LTFfMzFCRE0xaFVzIiwiZXhwIjoxNTcwNTI5MDU4LCJpYXQiOjE1NzA1MjU0NTgsInZlcnNpb24iOjIsImp0aSI6ImYxMTAyM2U5LWE1M2EtNDdlMS1iMTJkLTY5YjAwNjM4NDkzMyIsImNsaWVudF9pZCI6IjVmdTJ2bGt1dW1lM3NzdXNzcGxvMWtkN2o2In0.BP4H5Sgbj3rHfO-MHXWMgXSBiGqKyDbcPdIFDrANFIOL8vpfGKftUhA9j-RhdfV8jN7NdmxQ5Qu4hrfRagxMwW1exQ3-Pi8N_XPUojUJRncwZlWjPty33yM1vW59VLY5Li5xeC64Es7BkdIpbfqqMFbTQyl8xfBNpoHOjSxPclcdQ-RrHm0ayLMkcdldvUBPX98ym26NYh8pIkYcPsXWGI3DwV-Ib8PizT1UGKMHX1lvN-rL6lAxjY0MLcisKAKgEXj0sjoM3FsWLi75JO3s4XLLAHhwA8NBZfm-7mqnJpSDRRE9LcS4aNeFMYyiv9BqyZplAHsUS-qcJRWkCXZTuA\r\nUser-Agent: axios/0.19.0\r\nContent-Length: 76\r\nHost: connect2.api.reddotpay.sg\r\nConnection: close\r\n\r\n',
+     _header: 'POST /v1/payments/token/xxxxxxxxxxxxxxxx HTTP/1.1\r\nAccept: application/json, text/plain, */*\r\nContent-Type: application/json\r\nAuthorization: xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx\r\nUser-Agent: axios/0.19.0\r\nContent-Length: 76\r\nHost: xxx.sg\r\nConnection: close\r\n\r\n',
      _onPendingData: [Function],
      agent: {
       Agent: {
@@ -209,7 +209,7 @@ const instantPayResSample = {
      socketPath: undefined,
      timeout: undefined,
      method: 'POST',
-     path: '/v1/payments/token/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac',
+     path: '/v1/payments/token/xxxxxxxxxxxxxxxx',
      _ended: true,
      res: {
       IncomingMessage: {
@@ -238,7 +238,7 @@ const instantPayResSample = {
         _consuming: true,
         _dumped: false,
         req: ['Circular'],
-        responseUrl: 'https://connect2.api.reddotpay.sg/v1/payments/token/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac',
+        responseUrl: 'https://xxx.sg/v1/payments/token/xxxxxxxxxxxxxxxx',
         redirects: [],
         read: [Function] },
       },
@@ -262,7 +262,7 @@ const instantPayResSample = {
         _requestBodyBuffers: [],
         _onNativeResponse: [Function],
         _currentRequest: ['Circular'],
-        _currentUrl: 'https://connect2.api.reddotpay.sg/v1/payments/token/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac' },
+        _currentUrl: 'https://xxx.sg/v1/payments/token/xxxxxxxxxxxxxxxx' },
       },
      [Symbol('outHeadersKey')]: 
       { accept: [Array],
@@ -273,9 +273,9 @@ const instantPayResSample = {
         host: [Array] } },
   },
   data: {
-    token: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjaGFudElkIjoiOWJiM2UyMWYtZmVkZi00N2MzLWFmMDEtMDMxZTNjMmZiMGFjIiwicGFnZUlkIjoiMWMzYTZkMzgtMjk2MS00ZjFiLTljN2YtZDNkY2Q4ZWJhOWJiIiwiaWF0IjoxNTcwNTI1NDY0LCJleHAiOjE1NzA1MjYzNjR9.4JWf8w_t4b1uaxE8dzy49F6UCfis6yhVWS-GR9p7yi8',
-    pageId: '1c3a6d38-2961-4f1b-9c7f-d3dcd8eba9bb',
-    pageURI: 'https://connect2.reddotpay.sg/m/9bb3e21f-fedf-47c3-af01-031e3c2fb0ac#/pay/eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJtZXJjaGFudElkIjoiOWJiM2UyMWYtZmVkZi00N2MzLWFmMDEtMDMxZTNjMmZiMGFjIiwicGFnZUlkIjoiMWMzYTZkMzgtMjk2MS00ZjFiLTljN2YtZDNkY2Q4ZWJhOWJiIiwiaWF0IjoxNTcwNTI1NDY0LCJleHAiOjE1NzA1MjYzNjR9.4JWf8w_t4b1uaxE8dzy49F6UCfis6yhVWS-GR9p7yi8'
+    token: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    pageId: 'xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx',
+    pageURI: 'https://xxx.sg/m/xxxxxxxxxxxxxxxx/pay/xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
   }
 };
 
